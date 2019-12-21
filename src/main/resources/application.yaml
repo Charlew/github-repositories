@@ -1,0 +1,4 @@
+externalApi:
+  connectionTimeout: 100
+  readTimeout: 1000
+  url:

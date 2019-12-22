@@ -1,6 +1,6 @@
 package com.recruit.githubrepositories.infrastructure.dao;
 
-import com.recruit.githubrepositories.api.BadResponseFromExternalApiException;
+import com.recruit.githubrepositories.api.GithubRepositoryNotFoundException;
 import com.recruit.githubrepositories.domain.GithubRepository;
 import com.recruit.githubrepositories.domain.GithubRepositoryDao;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,14 +24,14 @@ public final class RestGithubRepositoryDao implements GithubRepositoryDao {
     @Override
     public GithubRepository getRepositoryData(String owner, String name) {
         var url = UriComponentsBuilder
-                .newInstance()
-                .pathSegment(externalApiUrl, owner, name)
+                .fromUriString(externalApiUrl)
+                .pathSegment(owner, name)
                 .toUriString();
 
         try {
             return http.getForObject(url, GithubRepository.class);
         } catch (HttpClientErrorException e) {
-            throw new BadResponseFromExternalApiException(e.getResponseBodyAsString());
+            throw new GithubRepositoryNotFoundException(owner, name);
         }
     }
 }

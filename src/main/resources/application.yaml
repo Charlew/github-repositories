@@ -1,4 +1,4 @@
 externalApi:
   connectionTimeout: 100
   readTimeout: 1000
-  url:
+  url: https://api.github.com/repos

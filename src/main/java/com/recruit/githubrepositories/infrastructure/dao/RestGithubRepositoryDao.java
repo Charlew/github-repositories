@@ -25,7 +25,7 @@ public final class RestGithubRepositoryDao implements GithubRepositoryDao {
     public GithubRepository getRepositoryData(String owner, String name) {
         var url = UriComponentsBuilder
                 .fromUriString(externalApiUrl)
-                .pathSegment(owner, name)
+                .pathSegment("repos", owner, name)
                 .toUriString();
 
         try {

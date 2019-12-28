@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class GithubRepository {
@@ -57,33 +56,5 @@ public final class GithubRepository {
     @JsonGetter("createdAt")
     public LocalDate getCreatedAt() {
         return createdAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GithubRepository that = (GithubRepository) o;
-        return stars == that.stars &&
-                Objects.equals(fullName, that.fullName) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(cloneUrl, that.cloneUrl) &&
-                Objects.equals(createdAt, that.createdAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(fullName, description, cloneUrl, stars, createdAt);
-    }
-
-    @Override
-    public String toString() {
-        return "GithubRepository{" +
-                "fullName='" + fullName + '\'' +
-                ", description='" + description + '\'' +
-                ", cloneUrl='" + cloneUrl + '\'' +
-                ", stars=" + stars +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

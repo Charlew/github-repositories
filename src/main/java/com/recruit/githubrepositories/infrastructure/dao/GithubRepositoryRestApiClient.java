@@ -1,27 +1,25 @@
 package com.recruit.githubrepositories.infrastructure.dao;
 
-import com.recruit.githubrepositories.api.GithubRepositoryNotFoundException;
 import com.recruit.githubrepositories.domain.GithubRepository;
-import com.recruit.githubrepositories.domain.GithubRepositoryDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
-public final class RestGithubRepositoryDao implements GithubRepositoryDao {
+public final class GithubRepositoryRestApiClient {
 
     private final RestTemplate http;
 
     private final String externalApiUrl;
 
-    public RestGithubRepositoryDao(RestTemplate http, @Value("${externalApi.url}") String externalApiUrl) {
+    public GithubRepositoryRestApiClient(RestTemplate http, @Value("${externalApi.url}") String externalApiUrl) {
         this.http = http;
         this.externalApiUrl = externalApiUrl;
     }
 
-    @Override
     public GithubRepository getRepositoryData(String owner, String name) {
         var url = UriComponentsBuilder
                 .fromUriString(externalApiUrl)
@@ -30,8 +28,8 @@ public final class RestGithubRepositoryDao implements GithubRepositoryDao {
 
         try {
             return http.getForObject(url, GithubRepository.class);
-        } catch (HttpClientErrorException e) {
-            throw new GithubRepositoryNotFoundException(owner, name);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            throw new GithubRepositoryCommunicationErrorException(e.getStatusCode(), e);
         }
     }
 }

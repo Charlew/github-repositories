@@ -32,9 +32,9 @@ sourceSets {
 		groovy {
 			compileClasspath += main.output + test.output
 			runtimeClasspath += main.output + test.output
-			srcDir file('src/integration/groovy')
+			srcDir file('src/test/groovy')
 		}
-		resources.srcDir file('src/integration/resources')
+		resources.srcDir file('src/test/resources')
 	}
 }
 

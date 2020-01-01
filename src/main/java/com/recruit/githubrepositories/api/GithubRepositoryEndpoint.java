@@ -11,11 +11,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(path = "/repositories")
-public class Endpoint {
+public class GithubRepositoryEndpoint {
 
     private final GithubRepositoryFacade githubRepository;
 
-    public Endpoint(GithubRepositoryFacade githubRepository) {
+    public GithubRepositoryEndpoint(GithubRepositoryFacade githubRepository) {
         this.githubRepository = githubRepository;
     }
 

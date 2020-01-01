@@ -10,7 +10,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 
-class EndpointSpec extends IntegrationSpec {
+class GithubRepositoryEndpointSpec extends IntegrationSpec {
 
     def "should get repository from external api"() {
         given:

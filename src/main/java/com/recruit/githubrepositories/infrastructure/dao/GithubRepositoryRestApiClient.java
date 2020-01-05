@@ -28,8 +28,10 @@ public final class GithubRepositoryRestApiClient {
 
         try {
             return http.getForObject(url, GithubRepository.class);
-        } catch (HttpClientErrorException | HttpServerErrorException e) {
-            throw new GithubRepositoryCommunicationErrorException(e.getStatusCode(), e);
+        } catch (HttpClientErrorException e) {
+            throw new GithubRepositoryClientErrorException(e.getStatusCode(), e);
+        } catch (HttpServerErrorException e) {
+            throw new GithubRepositoryServerErrorException();
         }
     }
 }
